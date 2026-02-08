@@ -1,6 +1,6 @@
 ﻿
 import React, { useState, useEffect, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+
 import { X, Check, CircleAlert, Loader2, Shield, ArrowRight, Store, Eye, EyeOff, Link as LinkIcon, Key } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 import { useAuth } from '../../context/AuthContext';
@@ -150,7 +150,7 @@ export const ConnectIntegrationsModal: React.FC<ConnectIntegrationsModalProps> =
 }) => {
     const { theme, mode } = useTheme();
     const { user } = useAuth();
-    const navigate = useNavigate();
+
 
     const [step, setStep] = useState<ModalStep>('platforms');
     const [selectedPlatform, setSelectedPlatform] = useState<PlatformConfig | null>(null);

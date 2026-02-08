@@ -78,10 +78,7 @@ export const AccountsPayable: React.FC = () => {
         }).format(value);
     };
 
-    const formatPercentage = (value: number) => {
-        const sign = value >= 0 ? '+' : '';
-        return `${sign}${value.toFixed(1)}%`;
-    };
+
 
     const statusOptions: { value: PurchaseStatus; label: string }[] = [
         { value: 'paid', label: 'Paid' },
@@ -102,6 +99,7 @@ export const AccountsPayable: React.FC = () => {
             <DashboardHeader
                 title="Accounts Payable"
                 subtitle="Track suppliers, purchases, dues, and profitability"
+                onRefresh={loadMetrics}
             />
 
             <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '24px' }}>
@@ -122,7 +120,8 @@ export const AccountsPayable: React.FC = () => {
                             title="Total Purchase Cost"
                             value={isLoading ? '...' : formatCurrency(metrics?.totalPurchaseCost || 0)}
                             icon={<DollarSign size={22} />}
-                            iconBgColor={mode === 'Dark' ? 'rgba(59, 130, 246, 0.2)' : '#DBEAFE'}
+                            iconBgColor="#DBEAFE"
+                            iconBgColorDark="rgba(59, 130, 246, 0.2)"
                             iconColor="#3B82F6"
                             tooltip="Total money spent on goods"
                             change={metrics?.purchaseCostChange}
@@ -140,7 +139,8 @@ export const AccountsPayable: React.FC = () => {
                             title="Revenue from Goods"
                             value={isLoading ? '...' : formatCurrency(metrics?.totalRevenueFromGoods || 0)}
                             icon={<TrendingUp size={22} />}
-                            iconBgColor={mode === 'Dark' ? 'rgba(34, 197, 94, 0.2)' : '#DCFCE7'}
+                            iconBgColor="#DCFCE7"
+                            iconBgColorDark="rgba(34, 197, 94, 0.2)"
                             iconColor="#22C55E"
                             tooltip="Revenue generated from sold inventory"
                             change={metrics?.revenueChange}
@@ -158,7 +158,8 @@ export const AccountsPayable: React.FC = () => {
                             title="Outstanding Payables"
                             value={isLoading ? '...' : formatCurrency(metrics?.outstandingPayables || 0)}
                             icon={<Clock size={22} />}
-                            iconBgColor={mode === 'Dark' ? 'rgba(245, 158, 11, 0.2)' : '#FEF3C7'}
+                            iconBgColor="#FEF3C7"
+                            iconBgColorDark="rgba(245, 158, 11, 0.2)"
                             iconColor="#F59E0B"
                             tooltip="Money still owed to vendors"
                             change={metrics?.outstandingChange}
@@ -176,7 +177,8 @@ export const AccountsPayable: React.FC = () => {
                             title="Net Goods Profit"
                             value={isLoading ? '...' : formatCurrency(metrics?.netGoodsProfit || 0)}
                             icon={<Wallet size={22} />}
-                            iconBgColor={mode === 'Dark' ? 'rgba(139, 92, 246, 0.2)' : '#EDE9FE'}
+                            iconBgColor="#EDE9FE"
+                            iconBgColorDark="rgba(139, 92, 246, 0.2)"
                             iconColor="#8B5CF6"
                             tooltip="Revenue minus Purchase Cost"
                             change={metrics?.profitChange}

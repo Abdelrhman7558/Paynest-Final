@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { useTheme } from '../../context/ThemeContext';
 import { useAuth } from '../../context/AuthContext';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { X, Upload, FileSpreadsheet, AlertCircle, CheckCircle, ArrowRight, ArrowLeft, Database } from 'lucide-react';
 import { UploadService } from '../../services/uploadService';
 import * as XLSX from 'xlsx';
@@ -65,7 +65,7 @@ export const UploadSheetModal: React.FC<UploadSheetModalProps> = ({ isOpen, onCl
     const [sourceType, setSourceType] = useState<'file' | 'gsheet'>('file');
 
     // Data State
-    const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
     const [gsheetUrl, setGsheetUrl] = useState('');
     const [fileHeaders, setFileHeaders] = useState<string[]>([]);
     const [parsedData, setParsedData] = useState<any[]>([]); // Raw data from file/sheet
@@ -81,7 +81,6 @@ export const UploadSheetModal: React.FC<UploadSheetModalProps> = ({ isOpen, onCl
         if (isOpen) {
             setStep('type-selection');
             setDataType('');
-            setSelectedFile(null);
             setGsheetUrl('');
             setFileHeaders([]);
             setParsedData([]);
@@ -152,7 +151,6 @@ export const UploadSheetModal: React.FC<UploadSheetModalProps> = ({ isOpen, onCl
 
             const blob = await response.blob();
             const file = new File([blob], "imported_sheet.csv", { type: "text/csv" });
-            setSelectedFile(file); // Store as file
             await handleFileProcess(file); // Reuse file processing logic
             setStep('mapping'); // Ensure we move to mapping step on success
         } catch (err: any) {
@@ -297,7 +295,6 @@ export const UploadSheetModal: React.FC<UploadSheetModalProps> = ({ isOpen, onCl
                         setDragOver(false);
                         const file = e.dataTransfer.files[0];
                         if (file) {
-                            setSelectedFile(file);
                             handleFileProcess(file);
                         }
                     }}
@@ -317,7 +314,6 @@ export const UploadSheetModal: React.FC<UploadSheetModalProps> = ({ isOpen, onCl
                         onChange={(e) => {
                             const file = e.target.files?.[0];
                             if (file) {
-                                setSelectedFile(file);
                                 handleFileProcess(file);
                             }
                         }}
@@ -523,7 +519,6 @@ export const UploadSheetModal: React.FC<UploadSheetModalProps> = ({ isOpen, onCl
                         setFileHeaders([]);
                         setParsedData([]);
                         setColumnMapping({});
-                        setSelectedFile(null);
                         setGsheetUrl('');
                     }} style={{ padding: '10px 20px', backgroundColor: theme.accent.primary, color: 'white', borderRadius: 8, border: 'none', cursor: 'pointer' }}>Try Again</button>
                 </div>

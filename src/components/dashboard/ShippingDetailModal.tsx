@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Truck, MapPin, Package, Calendar, Clock, DollarSign, ExternalLink } from 'lucide-react';
+import { X, Truck, MapPin, Package, Calendar, Clock, ExternalLink } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 
 interface ShippingDetailModalProps {
@@ -10,7 +10,7 @@ interface ShippingDetailModalProps {
 }
 
 export const ShippingDetailModal: React.FC<ShippingDetailModalProps> = ({ isOpen, onClose, shipmentId }) => {
-    const { theme, mode } = useTheme();
+    const { theme } = useTheme();
     const [activeTab, setActiveTab] = useState<'details' | 'tracking' | 'costs'>('details');
 
     if (!isOpen) return null;

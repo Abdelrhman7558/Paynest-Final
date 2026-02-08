@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Bell, Check, Trash2, X, MessageSquare, Info, AlertCircle, CheckCircle } from 'lucide-react';
+import { Bell, Trash2, MessageSquare, Info, AlertCircle, CheckCircle } from 'lucide-react';
 import { supabase } from '../../lib/supabaseClient';
 import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
@@ -21,7 +21,7 @@ export const NotificationBell: React.FC = () => {
     const [notifications, setNotifications] = useState<Notification[]>([]);
     const [unreadCount, setUnreadCount] = useState(0);
     const [isOpen, setIsOpen] = useState(false);
-    const [loading, setLoading] = useState(false);
+
     const [activeTab, setActiveTab] = useState<'all' | 'unread'>('all');
     const containerRef = useRef<HTMLDivElement>(null);
 
@@ -29,7 +29,7 @@ export const NotificationBell: React.FC = () => {
         if (!user) return;
 
         try {
-            setLoading(true);
+
             const { data, error } = await supabase
                 .from('Notification')
                 .select('*')
@@ -45,8 +45,6 @@ export const NotificationBell: React.FC = () => {
             }
         } catch (error) {
             console.error('Error fetching notifications:', error);
-        } finally {
-            setLoading(false);
         }
     };
 

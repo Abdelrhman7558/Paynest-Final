@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Upload, FileText, Plus, AlertTriangle, Loader2 } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
-import { createInvoice } from '../../services/vendorService';
-import type { CreateInvoiceInput, CreateInvoiceItemInput } from '../../types/accountsPayable';
+import { createPurchase } from '../../services/vendorService';
+import type { CreatePurchaseInput } from '../../types/accountsPayable';
 
 interface AddInvoiceModalProps {
     isOpen: boolean;
@@ -29,11 +29,11 @@ export const AddInvoiceModal: React.FC<AddInvoiceModalProps> = ({
     const [invoiceNumber, setInvoiceNumber] = useState('');
     const [invoiceDate, setInvoiceDate] = useState(new Date().toISOString().split('T')[0]);
     const [dueDate, setDueDate] = useState('');
-    const [subtotal, setSubtotal] = useState('');
+
     const [taxAmount, setTaxAmount] = useState('');
     const [discountAmount, setDiscountAmount] = useState('');
     const [notes, setNotes] = useState('');
-    const [items, setItems] = useState<CreateInvoiceItemInput[]>([
+    const [items, setItems] = useState<any[]>([
         { product_name: '', description: '', quantity: 1, unit_cost: 0 }
     ]);
 
@@ -51,7 +51,7 @@ export const AddInvoiceModal: React.FC<AddInvoiceModalProps> = ({
         setItems(items.filter((_, i) => i !== index));
     };
 
-    const handleItemChange = (index: number, field: keyof CreateInvoiceItemInput, value: string | number) => {
+    const handleItemChange = (index: number, field: string, value: string | number) => {
         const newItems = [...items];
         newItems[index] = { ...newItems[index], [field]: value };
         setItems(newItems);
@@ -72,20 +72,18 @@ export const AddInvoiceModal: React.FC<AddInvoiceModalProps> = ({
         setIsSubmitting(true);
 
         try {
-            const input: CreateInvoiceInput = {
+            const input: CreatePurchaseInput = {
                 vendor_id: vendorId,
-                invoice_number: invoiceNumber,
-                invoice_date: invoiceDate,
-                due_date: dueDate || undefined,
-                subtotal: calculatedSubtotal,
-                tax_amount: parsedTax,
-                discount_amount: parsedDiscount,
-                source: activeMode,
-                notes: notes || undefined,
-                items: items.filter(item => item.product_name),
+                vendor_name: vendorName,
+                product_name: items.length > 0 ? items[0].product_name : `Invoice ${invoiceNumber}`,
+                purchase_price: total,
+                quantity: 1,
+                paid_amount: 0,
+                notes: `Invoice: ${invoiceNumber}, Date: ${invoiceDate}, Due: ${dueDate}. ${notes || ''}`,
+                currency: 'EGP',
             };
 
-            await createInvoice(input);
+            await createPurchase(input);
             onSuccess();
             resetForm();
         } catch (error) {
@@ -99,7 +97,6 @@ export const AddInvoiceModal: React.FC<AddInvoiceModalProps> = ({
         setInvoiceNumber('');
         setInvoiceDate(new Date().toISOString().split('T')[0]);
         setDueDate('');
-        setSubtotal('');
         setTaxAmount('');
         setDiscountAmount('');
         setNotes('');
@@ -114,7 +111,6 @@ export const AddInvoiceModal: React.FC<AddInvoiceModalProps> = ({
             setIsSubmitting(true);
             setTimeout(() => {
                 setInvoiceNumber(`INV-${Date.now()}`);
-                setSubtotal('5000');
                 setTaxAmount('700');
                 setItems([
                     { product_name: 'Product from Invoice', description: 'Parsed automatically', quantity: 10, unit_cost: 500 }

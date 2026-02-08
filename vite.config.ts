@@ -10,13 +10,13 @@ export default defineConfig({
       '/api/shipping': {
         target: 'https://n8n.srv1181726.hstgr.cloud',
         changeOrigin: true,
-        rewrite: (path) => '/webhook-test/Shipping-tab',
+        rewrite: (_path) => '/webhook-test/Shipping-tab',
         secure: false,
         configure: (proxy, _options) => {
           proxy.on('error', (err, _req, _res) => {
             console.log('proxy error', err);
           });
-          proxy.on('proxyReq', (proxyReq, req, _res) => {
+          proxy.on('proxyReq', (_proxyReq, req, _res) => {
             console.log('Sending Request to the Target:', req.method, req.url);
           });
           proxy.on('proxyRes', (proxyRes, req, _res) => {
@@ -28,7 +28,7 @@ export default defineConfig({
       '/api/connect-shipping': {
         target: 'https://n8n.srv1181726.hstgr.cloud',
         changeOrigin: true,
-        rewrite: (path) => '/webhook-test/Sava-shippingAPi',
+        rewrite: (_path) => '/webhook-test/Sava-shippingAPi',
         secure: false,
       },
     },

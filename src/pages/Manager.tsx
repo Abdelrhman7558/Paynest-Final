@@ -1,17 +1,15 @@
-import React, { useEffect } from 'react';
+
+import React from 'react';
 import { DashboardLayout } from '../components/dashboard/DashboardLayout';
 import { DashboardHeader } from '../components/dashboard/DashboardHeader';
-import { useTheme } from '../context/ThemeContext';
-import { useAuth } from '../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
 import { KPICard } from '../components/dashboard/KPICard';
 import { UsersTable } from '../components/dashboard/UsersTable';
 import { Users, Server, Activity, ShieldCheck } from 'lucide-react';
 
-const ALLOWED_EMAILS = ['7bd02025@gmail.com', 'jihadalcc@gmail.com'];
+
 
 export const Manager: React.FC = () => {
-    const { theme } = useTheme();
+    // const { theme } = useTheme();
 
     // In a real app, we would check for admin role here
     // const { user } = useAuth();

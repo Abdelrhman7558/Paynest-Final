@@ -1,16 +1,17 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import type { InventoryItem, InventoryStats } from '../../types/inventory';
+import type { InventoryItem } from '../../types/inventory';
 import { MoreHorizontal, Truck } from 'lucide-react';
 import { getUnitProfit } from '../../data/mockInventory';
 
 interface InventoryTableProps {
     data: InventoryItem[];
-    stats: InventoryStats;
+    // stats: InventoryStats; // Unused
+
     onRowClick?: (item: InventoryItem) => void;
 }
 
-export const InventoryTable: React.FC<InventoryTableProps> = ({ data, stats, onRowClick }) => {
+export const InventoryTable: React.FC<InventoryTableProps> = ({ data, onRowClick }) => {
 
     const [currentPage, setCurrentPage] = React.useState(1);
     const itemsPerPage = 8;

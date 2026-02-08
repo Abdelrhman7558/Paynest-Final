@@ -10,12 +10,27 @@ import {
     Loader2,
 } from 'lucide-react';
 import { VendorDetailDrawer } from './VendorDetailDrawer';
-import { getVendorStatusColor } from '../../services/vendorService';
 import { formatCurrency } from '../../services/dashboardApi';
-import type { VendorWithStats } from '../../types/accountsPayable';
+import type { VendorDetail } from '../../types/accountsPayable';
+
+// Helper to derive vendor status
+const getVendorStatus = (vendor: VendorDetail): string => {
+    if (!vendor.is_active) return 'Inactive';
+    if (vendor.total_outstanding > 0) return 'Unpaid'; // Simplification
+    return 'Paid';
+};
+
+const getVendorStatusColor = (status: string) => {
+    switch (status.toLowerCase()) {
+        case 'paid': return { bg: '#DCFCE7', text: '#166534', darkBg: 'rgba(34, 197, 94, 0.2)' };
+        case 'unpaid': return { bg: '#FEE2E2', text: '#DC2626', darkBg: 'rgba(239, 68, 68, 0.2)' };
+        case 'inactive': return { bg: '#F3F4F6', text: '#6B7280', darkBg: 'rgba(107, 114, 128, 0.2)' };
+        default: return { bg: '#FEF9C3', text: '#A16207', darkBg: 'rgba(234, 179, 8, 0.2)' };
+    }
+};
 
 interface VendorsTableProps {
-    vendors: VendorWithStats[];
+    vendors: VendorDetail[];
     isLoading: boolean;
     onRefresh: () => void;
 }
@@ -25,7 +40,7 @@ type SortDirection = 'asc' | 'desc';
 
 export const VendorsTable: React.FC<VendorsTableProps> = ({ vendors, isLoading, onRefresh }) => {
     const { theme, mode } = useTheme();
-    const [selectedVendor, setSelectedVendor] = useState<VendorWithStats | null>(null);
+    const [selectedVendor, setSelectedVendor] = useState<VendorDetail | null>(null);
     const [showDrawer, setShowDrawer] = useState(false);
     const [sortField, setSortField] = useState<SortField>('name');
     const [sortDirection, setSortDirection] = useState<SortDirection>('asc');
@@ -42,21 +57,28 @@ export const VendorsTable: React.FC<VendorsTableProps> = ({ vendors, isLoading, 
     };
 
     const sortedVendors = [...vendors].sort((a, b) => {
-        let aVal: any = a[sortField];
-        let bVal: any = b[sortField];
+        const getField = (v: VendorDetail, field: SortField) => {
+            if (field === 'name') return v.name;
+            if (field === 'total_purchase') return v.total_purchase_cost;
+            if (field === 'total_paid') return v.total_paid;
+            if (field === 'total_outstanding') return v.total_outstanding;
+            if (field === 'last_invoice_date') {
+                if (!v.purchases || v.purchases.length === 0) return 0;
+                return Math.max(...v.purchases.map(p => new Date(p.created_at).getTime()));
+            }
+            return 0;
+        };
 
-        if (sortField === 'last_invoice_date') {
-            aVal = aVal ? new Date(aVal).getTime() : 0;
-            bVal = bVal ? new Date(bVal).getTime() : 0;
-        }
+        const aVal = getField(a, sortField);
+        const bVal = getField(b, sortField);
 
-        if (typeof aVal === 'string') {
+        if (typeof aVal === 'string' && typeof bVal === 'string') {
             return sortDirection === 'asc'
                 ? aVal.localeCompare(bVal)
                 : bVal.localeCompare(aVal);
         }
 
-        return sortDirection === 'asc' ? aVal - bVal : bVal - aVal;
+        return sortDirection === 'asc' ? (aVal as number) - (bVal as number) : (bVal as number) - (aVal as number);
     });
 
     const paginatedVendors = sortedVendors.slice(
@@ -66,7 +88,7 @@ export const VendorsTable: React.FC<VendorsTableProps> = ({ vendors, isLoading, 
 
     const totalPages = Math.ceil(sortedVendors.length / itemsPerPage);
 
-    const handleVendorClick = (vendor: VendorWithStats) => {
+    const handleVendorClick = (vendor: VendorDetail) => {
         setSelectedVendor(vendor);
         setShowDrawer(true);
     };
@@ -78,7 +100,7 @@ export const VendorsTable: React.FC<VendorsTableProps> = ({ vendors, isLoading, 
             : <ChevronDown size={14} style={{ marginLeft: '4px' }} />;
     };
 
-    const headerStyle = (field: SortField) => ({
+    const headerStyle = () => ({
         padding: '16px',
         backgroundColor: theme.bg.hover,
         color: theme.text.secondary,
@@ -177,51 +199,57 @@ export const VendorsTable: React.FC<VendorsTableProps> = ({ vendors, isLoading, 
                                 <tr style={{ textAlign: 'left' }}>
                                     <th
                                         onClick={() => handleSort('name')}
-                                        style={{ ...headerStyle('name'), borderTopLeftRadius: '12px', borderBottomLeftRadius: '12px' }}
+                                        style={{ ...headerStyle(), borderTopLeftRadius: '12px', borderBottomLeftRadius: '12px' }}
                                     >
                                         Vendor Name <SortIcon field="name" />
                                     </th>
-                                    <th style={{ ...headerStyle('name'), cursor: 'default' }}>
+                                    <th style={{ ...headerStyle(), cursor: 'default' }}>
                                         Total Invoices
                                     </th>
                                     <th
                                         onClick={() => handleSort('total_purchase')}
-                                        style={headerStyle('total_purchase')}
+                                        style={headerStyle()}
                                     >
                                         Total Purchase <SortIcon field="total_purchase" />
                                     </th>
                                     <th
                                         onClick={() => handleSort('total_paid')}
-                                        style={headerStyle('total_paid')}
+                                        style={headerStyle()}
                                     >
                                         Paid <SortIcon field="total_paid" />
                                     </th>
                                     <th
                                         onClick={() => handleSort('total_outstanding')}
-                                        style={headerStyle('total_outstanding')}
+                                        style={headerStyle()}
                                     >
                                         Outstanding <SortIcon field="total_outstanding" />
                                     </th>
                                     <th
                                         onClick={() => handleSort('last_invoice_date')}
-                                        style={headerStyle('last_invoice_date')}
+                                        style={headerStyle()}
                                     >
                                         Last Invoice <SortIcon field="last_invoice_date" />
                                     </th>
-                                    <th style={{ ...headerStyle('name'), cursor: 'default' }}>
+                                    <th style={{ ...headerStyle(), cursor: 'default' }}>
                                         Payment Terms
                                     </th>
-                                    <th style={{ ...headerStyle('name'), cursor: 'default' }}>
+                                    <th style={{ ...headerStyle(), cursor: 'default' }}>
                                         Status
                                     </th>
-                                    <th style={{ ...headerStyle('name'), cursor: 'default', borderTopRightRadius: '12px', borderBottomRightRadius: '12px' }}>
+                                    <th style={{ ...headerStyle(), cursor: 'default', borderTopRightRadius: '12px', borderBottomRightRadius: '12px' }}>
                                         Actions
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {paginatedVendors.map((vendor) => {
-                                    const statusColors = getVendorStatusColor(vendor.status);
+                                    const status = getVendorStatus(vendor);
+                                    const statusColors = getVendorStatusColor(status);
+                                    const totalInvoices = vendor.purchases ? vendor.purchases.length : 0;
+                                    const lastInvoiceDate = vendor.purchases && vendor.purchases.length > 0
+                                        ? new Date(Math.max(...vendor.purchases.map(p => new Date(p.created_at).getTime()))).toISOString()
+                                        : undefined;
+
                                     return (
                                         <tr
                                             key={vendor.id}
@@ -245,10 +273,10 @@ export const VendorsTable: React.FC<VendorsTableProps> = ({ vendors, isLoading, 
                                                 </div>
                                             </td>
                                             <td style={{ padding: '16px', color: theme.text.secondary, borderBottom: `1px solid ${theme.border.subtle}` }}>
-                                                {vendor.total_invoices}
+                                                {totalInvoices}
                                             </td>
                                             <td style={{ padding: '16px', color: theme.text.primary, fontWeight: 600, borderBottom: `1px solid ${theme.border.subtle}` }}>
-                                                {formatCurrency(vendor.total_purchase)}
+                                                {formatCurrency(vendor.total_purchase_cost)}
                                             </td>
                                             <td style={{ padding: '16px', color: '#166534', fontWeight: 500, borderBottom: `1px solid ${theme.border.subtle}` }}>
                                                 {formatCurrency(vendor.total_paid)}
@@ -257,7 +285,7 @@ export const VendorsTable: React.FC<VendorsTableProps> = ({ vendors, isLoading, 
                                                 {formatCurrency(vendor.total_outstanding)}
                                             </td>
                                             <td style={{ padding: '16px', color: theme.text.secondary, borderBottom: `1px solid ${theme.border.subtle}` }}>
-                                                {formatDate(vendor.last_invoice_date)}
+                                                {formatDate(lastInvoiceDate)}
                                             </td>
                                             <td style={{ padding: '16px', color: theme.text.secondary, borderBottom: `1px solid ${theme.border.subtle}` }}>
                                                 Net {vendor.payment_terms_days}
@@ -272,7 +300,7 @@ export const VendorsTable: React.FC<VendorsTableProps> = ({ vendors, isLoading, 
                                                     fontWeight: 600,
                                                     display: 'inline-block'
                                                 }}>
-                                                    {formatStatus(vendor.status)}
+                                                    {formatStatus(status)}
                                                 </span>
                                             </td>
                                             <td style={{ padding: '16px', borderBottom: `1px solid ${theme.border.subtle}` }}>

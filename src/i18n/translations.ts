@@ -212,6 +212,7 @@ export const translations = {
 
         continue: "Continue",
         completingSetup: "Completing Setup...",
+        skipForNow: "Skip for now",
     },
 
     ar: {
@@ -425,6 +426,7 @@ export const translations = {
 
         continue: "متابعة",
         completingSetup: "جاري إكمال الإعداد...",
+        skipForNow: "تخطي الآن",
     }
 };
 

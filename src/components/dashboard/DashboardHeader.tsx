@@ -30,7 +30,7 @@ export const DashboardHeader: React.FC<DashboardHeaderProps> = ({
     const [showUploadModal, setShowUploadModal] = useState(false);
     const menuRef = useRef<HTMLDivElement>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
-    const [uploading, setUploading] = useState(false);
+
 
     const handleSignOut = async () => {
         await signOut();
@@ -44,7 +44,7 @@ export const DashboardHeader: React.FC<DashboardHeaderProps> = ({
 
     const handleAvatarUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
         try {
-            setUploading(true);
+
             if (!event.target.files || event.target.files.length === 0) {
                 return;
             }
@@ -81,7 +81,6 @@ export const DashboardHeader: React.FC<DashboardHeaderProps> = ({
             const errorMessage = (error as any)?.message || 'Unknown error';
             alert(`Error uploading image: ${errorMessage}`);
         } finally {
-            setUploading(false);
         }
     };
 

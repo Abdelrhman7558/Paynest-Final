@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useTheme } from '../../context/ThemeContext';
 import { Search, Filter, X, ChevronDown } from 'lucide-react';
-import type { VendorWithStats, APFiltersState, VendorStatus } from '../../types/accountsPayable';
+import type { VendorDetail, APFiltersState, PurchaseStatus } from '../../types/accountsPayable';
 
 interface APFiltersProps {
-    vendors: VendorWithStats[];
+    vendors: VendorDetail[];
     filters: APFiltersState;
     onFilterChange: (filters: APFiltersState) => void;
 }
@@ -13,17 +13,17 @@ export const APFilters: React.FC<APFiltersProps> = ({ vendors, filters, onFilter
     const { theme, mode } = useTheme();
     const [showStatusDropdown, setShowStatusDropdown] = useState(false);
 
-    const statusOptions: { value: VendorStatus; label: string }[] = [
-        { value: 'healthy', label: 'Healthy' },
-        { value: 'overdue', label: 'Overdue' },
-        { value: 'risk', label: 'At Risk' },
+    const statusOptions: { value: PurchaseStatus; label: string }[] = [
+        { value: 'paid', label: 'Paid' },
+        { value: 'partially_paid', label: 'Partially Paid' },
+        { value: 'unpaid', label: 'Unpaid' },
     ];
 
     const handleSearchChange = (value: string) => {
         onFilterChange({ ...filters, searchTerm: value });
     };
 
-    const handleStatusToggle = (status: VendorStatus) => {
+    const handleStatusToggle = (status: PurchaseStatus) => {
         const currentStatuses = filters.status || [];
         const newStatuses = currentStatuses.includes(status as any)
             ? currentStatuses.filter(s => s !== status)

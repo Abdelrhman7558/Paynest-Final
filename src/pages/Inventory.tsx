@@ -153,7 +153,7 @@ export const Inventory: React.FC = () => {
     const stats: InventoryStats = inventoryStats;
 
     // Calculate total value
-    const totalValue = inventoryData.reduce((sum, item) => sum + (item.stock.total * item.financials.cost), 0);
+
 
     // Derived stats
     const returnsRate = stats.active_orders_count > 0
@@ -346,7 +346,7 @@ export const Inventory: React.FC = () => {
 
                             {/* Table Container */}
                             <div className="inventory-table-wrapper bg-white border border-slate-200 overflow-hidden shadow-sm h-full min-h-[600px]">
-                                <InventoryTable data={filteredData} stats={stats} />
+                                <InventoryTable data={filteredData} />
                             </div>
                         </div>
                     </>

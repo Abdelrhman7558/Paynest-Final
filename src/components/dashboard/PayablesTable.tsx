@@ -1,16 +1,13 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import {
     Plus,
     Trash2,
     Check,
     X,
-    MoreHorizontal,
-    ChevronDown,
     RefreshCw,
-    Download,
-    Upload,
-    Settings2,
+
+
 } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 import {
@@ -41,13 +38,13 @@ export const PayablesTable: React.FC<PayablesTableProps> = ({
     const { theme, mode } = useTheme();
     const [purchases, setPurchases] = useState<PurchaseRecord[]>([]);
     const [vendors, setVendors] = useState<Vendor[]>([]);
-    const [columns, setColumns] = useState<TableColumn[]>(DEFAULT_PAYABLES_COLUMNS);
+    const [columns] = useState<TableColumn[]>(DEFAULT_PAYABLES_COLUMNS);
     const [isLoading, setIsLoading] = useState(true);
     const [editingCell, setEditingCell] = useState<{ rowId: string; columnKey: string } | null>(null);
     const [editValue, setEditValue] = useState<string>('');
     const [showAddRow, setShowAddRow] = useState(false);
     const [newRow, setNewRow] = useState<Partial<CreatePurchaseInput>>({});
-    const [selectedVendor, setSelectedVendor] = useState<Vendor | null>(null);
+
 
     useEffect(() => {
         loadData();
@@ -141,7 +138,8 @@ export const PayablesTable: React.FC<PayablesTableProps> = ({
             onRefresh();
             setShowAddRow(false);
             setNewRow({});
-            setSelectedVendor(null);
+            setNewRow({});
+
         } catch (error) {
             console.error('Error adding row:', error);
         }
@@ -384,7 +382,6 @@ export const PayablesTable: React.FC<PayablesTableProps> = ({
                         value={newRow.vendor_id || ''}
                         onChange={(e) => {
                             const vendor = vendors.find(v => v.id === e.target.value);
-                            setSelectedVendor(vendor || null);
                             setNewRow({ ...newRow, vendor_id: e.target.value, vendor_name: vendor?.name || '' });
                         }}
                         style={{

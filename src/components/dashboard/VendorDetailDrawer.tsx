@@ -6,7 +6,6 @@ import {
     FileText,
     Plus,
     DollarSign,
-    Calendar,
     Clock,
     Download,
     CreditCard,
@@ -17,7 +16,6 @@ import {
     Building2,
     Truck,
     Image,
-    Paperclip,
     Edit3,
     Check,
     Loader2,
@@ -26,7 +24,6 @@ import { useTheme } from '../../context/ThemeContext';
 import { RecordPaymentModal } from './RecordPaymentModal';
 import {
     fetchVendorDetail,
-    recordPayment,
     createProduct,
     formatCurrencyValue,
     getStatusColor,
@@ -34,17 +31,14 @@ import {
 import type {
     PurchaseRecord,
     VendorDetail,
-    Product,
-    Shipment,
-    VendorPayment,
-    Attachment,
     CreateProductInput,
 } from '../../types/accountsPayable';
 
 interface VendorDetailDrawerProps {
     isOpen: boolean;
     onClose: () => void;
-    purchase: PurchaseRecord | null;
+    purchase?: PurchaseRecord | null;
+    vendor?: { id: string; name: string; contact_person?: string } | null;
     onRefresh: () => void;
 }
 
@@ -54,8 +48,12 @@ export const VendorDetailDrawer: React.FC<VendorDetailDrawerProps> = ({
     isOpen,
     onClose,
     purchase,
+    vendor,
     onRefresh,
 }) => {
+    const effectiveVendorId = purchase?.vendor_id || vendor?.id;
+    const effectiveVendorName = purchase?.vendor_name || vendor?.name;
+
     const { theme, mode } = useTheme();
     const [activeTab, setActiveTab] = useState<TabType>('overview');
     const [vendorDetail, setVendorDetail] = useState<VendorDetail | null>(null);
@@ -70,16 +68,16 @@ export const VendorDetailDrawer: React.FC<VendorDetailDrawerProps> = ({
     const [newProduct, setNewProduct] = useState<Partial<CreateProductInput>>({});
 
     useEffect(() => {
-        if (purchase && isOpen) {
+        if ((purchase || vendor) && isOpen) {
             loadVendorData();
         }
-    }, [purchase, isOpen]);
+    }, [purchase, vendor, isOpen]);
 
     const loadVendorData = async () => {
-        if (!purchase) return;
+        if (!effectiveVendorId) return;
         setIsLoading(true);
         try {
-            const data = await fetchVendorDetail(purchase.vendor_id);
+            const data = await fetchVendorDetail(effectiveVendorId);
             setVendorDetail(data);
         } catch (error) {
             console.error('Error loading vendor data:', error);
@@ -95,11 +93,11 @@ export const VendorDetailDrawer: React.FC<VendorDetailDrawerProps> = ({
     };
 
     const handleAddProduct = async () => {
-        if (!purchase || !newProduct.name || !newProduct.unit_price) return;
+        if (!effectiveVendorId || !newProduct.name || !newProduct.unit_price) return;
 
         try {
             await createProduct({
-                vendor_id: purchase.vendor_id,
+                vendor_id: effectiveVendorId!,
                 name: newProduct.name,
                 description: newProduct.description,
                 unit_price: newProduct.unit_price,
@@ -133,7 +131,7 @@ export const VendorDetailDrawer: React.FC<VendorDetailDrawerProps> = ({
         setEditValue('');
     };
 
-    if (!isOpen || !purchase) return null;
+    if (!isOpen || !effectiveVendorId) return null;
 
     const formatDate = (date?: string) => {
         if (!date) return '-';
@@ -202,14 +200,14 @@ export const VendorDetailDrawer: React.FC<VendorDetailDrawerProps> = ({
                                 fontSize: '24px',
                                 fontWeight: 700,
                             }}>
-                                {purchase.vendor_name.charAt(0)}
+                                {effectiveVendorName?.charAt(0) || 'V'}
                             </div>
                             <div>
                                 <h2 style={{ fontSize: '22px', fontWeight: 700, color: theme.text.primary, margin: 0 }}>
-                                    {purchase.vendor_name}
+                                    {effectiveVendorName || 'Unknown Vendor'}
                                 </h2>
                                 <p style={{ fontSize: '14px', color: theme.text.muted, margin: '4px 0 0' }}>
-                                    {purchase.product_name} • {formatCurrencyValue(purchase.total_cost)}
+                                    {purchase ? `${purchase.product_name} • ${formatCurrencyValue(purchase.total_cost)}` : 'Vendor Details'}
                                 </p>
                             </div>
                         </div>
@@ -318,6 +316,7 @@ export const VendorDetailDrawer: React.FC<VendorDetailDrawerProps> = ({
                                             backgroundColor: theme.bg.card,
                                             borderRadius: '16px',
                                             border: `1px solid ${theme.border.primary}`,
+                                            display: purchase ? 'block' : 'none'
                                         }}>
                                             <h4 style={{
                                                 fontSize: '14px',
@@ -329,34 +328,38 @@ export const VendorDetailDrawer: React.FC<VendorDetailDrawerProps> = ({
                                                 Current Purchase Details
                                             </h4>
                                             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-                                                <DetailRow label="Product" value={purchase.product_name} theme={theme} />
-                                                <DetailRow label="Quantity" value={purchase.quantity.toString()} theme={theme} />
-                                                <DetailRow label="Unit Price" value={formatCurrencyValue(purchase.purchase_price)} theme={theme} />
-                                                <DetailRow label="Total Cost" value={formatCurrencyValue(purchase.total_cost)} theme={theme} />
-                                                <DetailRow label="Paid" value={formatCurrencyValue(purchase.paid_amount)} theme={theme} />
-                                                <DetailRow label="Outstanding" value={formatCurrencyValue(purchase.outstanding_amount)} theme={theme} />
-                                                <DetailRow
-                                                    label="Status"
-                                                    value={
-                                                        <span style={{
-                                                            padding: '4px 12px',
-                                                            borderRadius: '12px',
-                                                            backgroundColor: mode === 'Dark' ? getStatusColor(purchase.status).darkBg : getStatusColor(purchase.status).bg,
-                                                            color: getStatusColor(purchase.status).text,
-                                                            fontSize: '12px',
-                                                            fontWeight: 600,
-                                                            textTransform: 'capitalize',
-                                                        }}>
-                                                            {purchase.status.replace('_', ' ')}
-                                                        </span>
-                                                    }
-                                                    theme={theme}
-                                                />
-                                                <DetailRow
-                                                    label="Last Shipment"
-                                                    value={purchase.last_shipment_received ? `✓ ${formatDate(purchase.last_shipment_date)}` : 'Pending'}
-                                                    theme={theme}
-                                                />
+                                                {purchase && (
+                                                    <>
+                                                        <DetailRow label="Product" value={purchase.product_name} theme={theme} />
+                                                        <DetailRow label="Quantity" value={purchase.quantity.toString()} theme={theme} />
+                                                        <DetailRow label="Unit Price" value={formatCurrencyValue(purchase.purchase_price)} theme={theme} />
+                                                        <DetailRow label="Total Cost" value={formatCurrencyValue(purchase.total_cost)} theme={theme} />
+                                                        <DetailRow label="Paid" value={formatCurrencyValue(purchase.paid_amount)} theme={theme} />
+                                                        <DetailRow label="Outstanding" value={formatCurrencyValue(purchase.outstanding_amount)} theme={theme} />
+                                                        <DetailRow
+                                                            label="Status"
+                                                            value={
+                                                                <span style={{
+                                                                    padding: '4px 12px',
+                                                                    borderRadius: '12px',
+                                                                    backgroundColor: mode === 'Dark' ? getStatusColor(purchase.status).darkBg : getStatusColor(purchase.status).bg,
+                                                                    color: getStatusColor(purchase.status).text,
+                                                                    fontSize: '12px',
+                                                                    fontWeight: 600,
+                                                                    textTransform: 'capitalize',
+                                                                }}>
+                                                                    {purchase.status.replace('_', ' ')}
+                                                                </span>
+                                                            }
+                                                            theme={theme}
+                                                        />
+                                                        <DetailRow
+                                                            label="Last Shipment"
+                                                            value={purchase.last_shipment_received ? `✓ ${formatDate(purchase.last_shipment_date)}` : 'Pending'}
+                                                            theme={theme}
+                                                        />
+                                                    </>
+                                                )}
                                             </div>
                                         </div>
 
@@ -427,7 +430,7 @@ export const VendorDetailDrawer: React.FC<VendorDetailDrawerProps> = ({
                                     <div>
                                         <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
                                             <h3 style={{ fontSize: '16px', fontWeight: 600, color: theme.text.primary }}>
-                                                Products from {purchase.vendor_name}
+                                                Products from {effectiveVendorName}
                                             </h3>
                                             <button
                                                 onClick={() => setShowAddProduct(true)}
@@ -941,8 +944,8 @@ export const VendorDetailDrawer: React.FC<VendorDetailDrawerProps> = ({
             <RecordPaymentModal
                 isOpen={showRecordPayment}
                 onClose={() => setShowRecordPayment(false)}
-                vendorId={purchase.vendor_id}
-                vendorName={purchase.vendor_name}
+                vendorId={effectiveVendorId || ''}
+                vendorName={effectiveVendorName || ''}
                 invoices={[]} // Pass empty for now, or convert purchases to invoice format
                 onSuccess={handlePaymentRecorded}
             />

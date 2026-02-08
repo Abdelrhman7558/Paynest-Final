@@ -13,6 +13,9 @@ export interface KPICardProps {
     tooltip: string;
     isCurrency?: boolean;
     isPercentage?: boolean;
+    change?: number;
+    changeLabel?: string;
+    trend?: 'up' | 'down' | 'neutral';
 }
 
 export const KPICard: React.FC<KPICardProps> = ({
@@ -25,6 +28,8 @@ export const KPICard: React.FC<KPICardProps> = ({
     tooltip,
     isCurrency = false,
     isPercentage = false,
+    change,
+    changeLabel,
 }) => {
     const { theme, mode } = useTheme();
     const [showTooltip, setShowTooltip] = useState(false);
@@ -103,6 +108,23 @@ export const KPICard: React.FC<KPICardProps> = ({
                 <p style={{ fontSize: '22px', fontWeight: 700, color: theme.text.primary, margin: 0 }}>
                     {displayValue}
                 </p>
+                {typeof change !== 'undefined' && (
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '4px', marginTop: '4px' }}>
+                        <span style={{
+                            fontSize: '12px',
+                            fontWeight: 600,
+                            color: change >= 0 ? '#10B981' : '#EF4444',
+                            display: 'flex', alignItems: 'center'
+                        }}>
+                            {change >= 0 ? '↑' : '↓'} {Math.abs(change)}%
+                        </span>
+                        {changeLabel && (
+                            <span style={{ fontSize: '11px', color: theme.text.muted }}>
+                                {changeLabel}
+                            </span>
+                        )}
+                    </div>
+                )}
             </div>
 
             {/* Right Side - Icon */}

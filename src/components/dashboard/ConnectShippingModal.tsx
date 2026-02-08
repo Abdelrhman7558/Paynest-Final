@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Truck, X, Check, Shield, AlertCircle } from 'lucide-react';
+import { Truck, X, Check, AlertCircle } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
 

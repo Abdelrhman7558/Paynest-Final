@@ -51,7 +51,7 @@ export const Sidebar: React.FC = () => {
     const location = useLocation();
     const { mode, theme, toggleTheme } = useTheme();
     const { profile, user, refreshProfile } = useAuth();
-    const [uploading, setUploading] = React.useState(false);
+
     const fileInputRef = React.useRef<HTMLInputElement>(null);
 
     const isActive = (path: string) => location.pathname === path;
@@ -61,7 +61,7 @@ export const Sidebar: React.FC = () => {
 
     const handleAvatarUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
         try {
-            setUploading(true);
+
             if (!event.target.files || event.target.files.length === 0) {
                 return;
             }
@@ -142,7 +142,6 @@ export const Sidebar: React.FC = () => {
             console.error('Error uploading avatar:', error);
             alert(`Error uploading image: ${error?.message || 'Unknown error'}`);
         } finally {
-            setUploading(false);
             // Reset file input so same file can be selected again
             if (event.target) {
                 event.target.value = '';

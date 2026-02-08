@@ -13,14 +13,11 @@ import type {
     VendorPayment,
     Attachment,
     APMetrics,
-    TableColumn,
-    TableConfig,
     CreateVendorInput,
     CreatePurchaseInput,
     UpdatePurchaseInput,
     RecordPaymentInput,
     CreateProductInput,
-    DEFAULT_PAYABLES_COLUMNS,
     PurchaseStatus,
 } from '../types/accountsPayable';
 
@@ -87,7 +84,7 @@ const MOCK_ATTACHMENTS: Attachment[] = [
 export const fetchAPMetrics = async (): Promise<APMetrics> => {
     if (USE_MOCK_DATA) {
         const totalPurchaseCost = MOCK_PURCHASES.reduce((sum, p) => sum + p.total_cost, 0);
-        const totalPaid = MOCK_PURCHASES.reduce((sum, p) => sum + p.paid_amount, 0);
+
         const outstandingPayables = MOCK_PURCHASES.reduce((sum, p) => sum + p.outstanding_amount, 0);
 
         // Simulated revenue from goods (markup)
@@ -112,7 +109,7 @@ export const fetchAPMetrics = async (): Promise<APMetrics> => {
 
     // Calculate metrics from data
     const totalPurchaseCost = data?.reduce((sum: number, p: any) => sum + (p.total_cost || 0), 0) || 0;
-    const totalPaid = data?.reduce((sum: number, p: any) => sum + (p.paid_amount || 0), 0) || 0;
+
     const outstandingPayables = data?.reduce((sum: number, p: any) => sum + (p.outstanding_amount || 0), 0) || 0;
     const totalRevenueFromGoods = totalPurchaseCost * 1.35;
     const netGoodsProfit = totalRevenueFromGoods - totalPurchaseCost;

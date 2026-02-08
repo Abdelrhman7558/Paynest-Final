@@ -1,8 +1,8 @@
 import React from 'react';
-import { DollarSign, TrendingDown, TrendingUp, Wallet, Target, Percent, HelpCircle } from 'lucide-react';
+import { DollarSign, TrendingDown, TrendingUp, Wallet, Target, Percent } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 import type { DashboardMetrics } from '../../types/dashboard';
-import { formatCurrency } from '../../services/dashboardApi';
+
 
 interface KPIGridProps {
     metrics: DashboardMetrics | null;
