@@ -13,7 +13,7 @@ interface ComparisonItem {
 }
 
 export const WhyUs: React.FC = () => {
-    const { t, isRTL } = useLanguage();
+    const { isRTL } = useLanguage();
 
     // In a real app, these strings should be in translation files. 
     // Using hardcoded English for now as per instructions to improve content.

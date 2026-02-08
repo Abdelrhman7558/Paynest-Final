@@ -5,7 +5,7 @@ import styles from './TargetAudience.module.css';
 import { useLanguage } from '../../context/LanguageContext';
 
 export const TargetAudience: React.FC = () => {
-    const { t, isRTL } = useLanguage();
+    const { isRTL } = useLanguage();
 
     const personas = [
         {
@@ -55,7 +55,7 @@ export const TargetAudience: React.FC = () => {
             y: 0,
             transition: {
                 duration: 0.5,
-                ease: "easeOut"
+                ease: "easeOut" as any
             }
         }
     };

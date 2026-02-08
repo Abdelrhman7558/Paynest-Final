@@ -5,7 +5,7 @@ import styles from './ProductOverview.module.css';
 import { useLanguage } from '../../context/LanguageContext';
 
 export const ProductOverview: React.FC = () => {
-    const { t, isRTL } = useLanguage();
+    const { isRTL } = useLanguage();
 
     const features = [
         {
@@ -47,7 +47,7 @@ export const ProductOverview: React.FC = () => {
             y: 0,
             transition: {
                 duration: 0.5,
-                ease: "easeOut"
+                ease: "easeOut" as any
             }
         }
     };

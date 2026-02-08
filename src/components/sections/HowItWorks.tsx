@@ -5,7 +5,7 @@ import styles from './HowItWorks.module.css';
 import { useLanguage } from '../../context/LanguageContext';
 
 export const HowItWorks: React.FC = () => {
-    const { t, isRTL } = useLanguage();
+    const { isRTL } = useLanguage();
 
     const steps = [
         {
@@ -47,7 +47,7 @@ export const HowItWorks: React.FC = () => {
             y: 0,
             transition: {
                 duration: 0.6,
-                ease: "easeOut"
+                ease: "easeOut" as any
             }
         }
     };
