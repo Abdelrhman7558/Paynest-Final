@@ -1,50 +1,95 @@
 /* Plans Section */
 .plansSection {
-    padding: 6rem 0;
-    background-color: var(--color-bg);
+    padding: 120px 24px;
+    background-color: #f8fafc;
 }
 
 .header {
     text-align: center;
-    margin-bottom: 4rem;
+    margin-bottom: 80px;
 }
 
 .title {
     font-size: 2.5rem;
-    color: var(--color-secondary);
-    font-weight: 700;
-    margin-bottom: 1rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
+}
+
+.subtitle {
+    font-size: 1.125rem;
+    color: #64748b;
+    margin-bottom: 32px;
 }
 
 .toggleWrapper {
-    display: flex;
-    justify-content: center;
+    display: inline-flex;
     align-items: center;
-    gap: 1rem;
-    margin-bottom: 3rem;
+    gap: 16px;
+    background: white;
+    padding: 8px 16px;
+    border-radius: 100px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
 }
 
 .toggleLabel {
     font-weight: 500;
-    color: var(--color-text-muted);
+    color: #64748b;
     cursor: pointer;
+    font-size: 0.95rem;
+    transition: color 0.2s;
 }
 
 .toggleLabel.active {
-    color: var(--color-secondary);
+    color: #0f172a;
+    font-weight: 600;
+}
+
+.toggleSwitch {
+    width: 48px;
+    height: 28px;
+    background-color: #10b981;
+    border-radius: 999px;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.toggleThumb {
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.saveBadge {
+    color: #10b981;
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin-left: 4px;
+    background: #ecfdf5;
+    padding: 2px 6px;
+    border-radius: 6px;
 }
 
 .grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 2rem;
+    gap: 32px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .card {
     background: white;
-    border-radius: 1.5rem;
-    padding: 2.5rem;
-    border: 1px solid var(--color-border);
+    border-radius: 24px;
+    padding: 40px;
+    border: 1px solid #e2e8f0;
     transition: all 0.3s ease;
     position: relative;
     display: flex;
@@ -53,12 +98,14 @@
 
 .card:hover {
     transform: translateY(-8px);
-    box-shadow: 0 20px 40px -5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.1);
+    border-color: #cbd5e1;
 }
 
 .cardPopular {
-    border-color: var(--color-primary);
-    box-shadow: 0 10px 30px -5px rgba(15, 118, 110, 0.1);
+    border-color: #10b981;
+    box-shadow: 0 20px 40px -10px rgba(16, 185, 129, 0.15);
+    background: linear-gradient(180deg, #ffffff 0%, #f0fdf4 100%);
 }
 
 .badge {
@@ -66,51 +113,86 @@
     top: -12px;
     left: 50%;
     transform: translateX(-50%);
-    background: var(--color-primary);
+    background: #10b981;
     color: white;
-    padding: 0.25rem 1rem;
-    border-radius: 99px;
+    padding: 6px 16px;
+    border-radius: 100px;
     font-size: 0.875rem;
-    font-weight: 600;
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.planName {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 8px;
+}
+
+.planDesc {
+    font-size: 0.95rem;
+    color: #64748b;
+    margin-bottom: 24px;
 }
 
 .price {
-    font-size: 3rem;
-    font-weight: 700;
-    color: var(--color-secondary);
-    margin: 1.5rem 0;
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 32px;
     display: flex;
     align-items: baseline;
+    letter-spacing: -0.02em;
 }
 
 .period {
     font-size: 1rem;
-    color: var(--color-text-muted);
-    font-weight: 400;
-    margin-left: 0.5rem;
+    color: #64748b;
+    font-weight: 500;
+    margin-left: 8px;
 }
 
 .featuresList {
     list-style: none;
-    margin: 2rem 0;
+    margin: 0 0 32px 0;
     flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 }
 
 .featureItem {
     display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    margin-bottom: 1rem;
-    color: var(--color-text);
+    align-items: flex-start;
+    gap: 12px;
+    color: #334155;
+    font-size: 1rem;
+    line-height: 1.5;
 }
 
 .checkIcon {
-    color: var(--color-primary);
+    color: #10b981;
+    flex-shrink: 0;
+    background: #ecfdf5;
+    border-radius: 50%;
+    padding: 2px;
+    width: 20px;
+    height: 20px;
+}
+
+.fullWidthBtn {
+    width: 100%;
+    justify-content: center;
+    padding: 16px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 12px;
+    transition: all 0.2s;
 }
 
 /* FAQ Section */
 .faqSection {
-    padding: 6rem 0;
+    padding: 120px 24px;
     background: white;
 }
 
@@ -119,8 +201,16 @@
     margin: 0 auto;
 }
 
+.faqTitle {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 64px;
+}
+
 .accordionItem {
-    border-bottom: 1px solid var(--color-border);
+    border-bottom: 1px solid #e2e8f0;
 }
 
 .accordionTrigger {
@@ -128,20 +218,30 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1.5rem 0;
+    padding: 24px 0;
     background: none;
     border: none;
     font-size: 1.125rem;
     font-weight: 600;
-    color: var(--color-secondary);
+    color: #0f172a;
     cursor: pointer;
     text-align: left;
+    transition: color 0.2s;
+}
+
+.accordionTrigger:hover {
+    color: #10b981;
 }
 
 .accordionContent {
-    color: var(--color-text-muted);
-    line-height: 1.6;
     overflow: hidden;
+}
+
+.answerText {
+    padding-bottom: 24px;
+    color: #475569;
+    line-height: 1.7;
+    font-size: 1.05rem;
 }
 
 @media (min-width: 968px) {
@@ -150,46 +250,66 @@
     }
 }
 
-.toggleSwitch {
-    width: 3rem;
-    height: 1.5rem;
-    background-color: #059669;
-    border-radius: 9999px;
-    position: relative;
-    cursor: pointer;
+/* Dark Mode */
+:global(.dark) .plansSection {
+    background-color: #0f172a;
 }
 
-.toggleThumb {
-    width: 1rem;
-    height: 1rem;
-    background-color: white;
-    border-radius: 50%;
-    position: absolute;
-    top: 0.25rem;
+:global(.dark) .header .title {
+    color: #f8fafc;
 }
 
-.saveBadge {
-    color: #059669;
-    font-size: 0.75rem;
-    font-weight: 700;
-    margin-left: 0.25rem;
+:global(.dark) .toggleWrapper {
+    background: #1e293b;
+    border-color: #334155;
 }
 
-.planName {
-    font-size: 1.25rem;
-    font-weight: 700;
+:global(.dark) .toggleLabel {
+    color: #94a3b8;
 }
 
-.fullWidthBtn {
-    width: 100%;
-    justify-content: center;
+:global(.dark) .toggleLabel.active {
+    color: #f8fafc;
 }
 
-.faqTitle {
-    text-align: center;
-    margin-bottom: 3rem;
+:global(.dark) .card {
+    background: #1e293b;
+    border-color: #334155;
 }
 
-.answerText {
-    padding-bottom: 1.5rem;
+:global(.dark) .cardPopular {
+    background: linear-gradient(180deg, #1e293b 0%, rgba(16, 185, 129, 0.05) 100%);
+    border-color: #059669;
+}
+
+:global(.dark) .planName {
+    color: #f8fafc;
+}
+
+:global(.dark) .price {
+    color: #f8fafc;
+}
+
+:global(.dark) .featureItem {
+    color: #cbd5e1;
+}
+
+:global(.dark) .faqSection {
+    background: #0f172a;
+}
+
+:global(.dark) .faqTitle {
+    color: #f8fafc;
+}
+
+:global(.dark) .accordionItem {
+    border-color: #334155;
+}
+
+:global(.dark) .accordionTrigger {
+    color: #f8fafc;
+}
+
+:global(.dark) .answerText {
+    color: #94a3b8;
 }

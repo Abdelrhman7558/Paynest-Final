@@ -5,19 +5,19 @@ import styles from './Integrations.module.css';
 
 export const Integrations: React.FC = () => {
     const integrations = [
-        { name: 'Shopify', icon: <ShoppingBag size={20} /> },
-        { name: 'WooCommerce', icon: <ShoppingCart size={20} /> },
-        { name: 'Google Sheets', icon: <FileSpreadsheet size={20} /> },
-        { name: 'Excel / CSV', icon: <Database size={20} /> },
-        { name: 'Shipping Providers', icon: <Truck size={20} /> },
+        { name: 'Shopify', icon: <ShoppingBag size={20} />, color: '#96BF48' },
+        { name: 'WooCommerce', icon: <ShoppingCart size={20} />, color: '#96588A' },
+        { name: 'Google Sheets', icon: <FileSpreadsheet size={20} />, color: '#0F9D58' },
+        { name: 'Excel / CSV', icon: <Database size={20} />, color: '#217346' },
+        { name: 'Shipping Providers', icon: <Truck size={20} />, color: '#0F766E' }, // Paynest Brand Green
         // Duplicate for loop
-        { name: 'Shopify', icon: <ShoppingBag size={20} /> },
-        { name: 'WooCommerce', icon: <ShoppingCart size={20} /> },
-        { name: 'Google Sheets', icon: <FileSpreadsheet size={20} /> },
-        { name: 'Excel / CSV', icon: <Database size={20} /> },
-        { name: 'Shipping Providers', icon: <Truck size={20} /> },
-        { name: 'Shopify', icon: <ShoppingBag size={20} /> },
-        { name: 'WooCommerce', icon: <ShoppingCart size={20} /> },
+        { name: 'Shopify', icon: <ShoppingBag size={20} />, color: '#96BF48' },
+        { name: 'WooCommerce', icon: <ShoppingCart size={20} />, color: '#96588A' },
+        { name: 'Google Sheets', icon: <FileSpreadsheet size={20} />, color: '#0F9D58' },
+        { name: 'Excel / CSV', icon: <Database size={20} />, color: '#217346' },
+        { name: 'Shipping Providers', icon: <Truck size={20} />, color: '#0F766E' },
+        { name: 'Shopify', icon: <ShoppingBag size={20} />, color: '#96BF48' },
+        { name: 'WooCommerce', icon: <ShoppingCart size={20} />, color: '#96588A' },
     ];
 
     return (
@@ -38,7 +38,11 @@ export const Integrations: React.FC = () => {
                     }}
                 >
                     {integrations.map((item, i) => (
-                        <div key={i} className={styles.logoItem}>
+                        <div
+                            key={i}
+                            className={styles.logoItem}
+                            style={{ '--hover-color': item.color } as React.CSSProperties}
+                        >
                             {item.icon}
                             <span>{item.name}</span>
                         </div>

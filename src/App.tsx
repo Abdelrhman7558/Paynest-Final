@@ -30,24 +30,31 @@ import { PaynestLoader } from './components/ui/PaynestLoader';
 // Landing Page Components
 import { Header } from './components/layout/Header';
 import { Hero } from './components/sections/Hero';
-import { Metrics } from './components/sections/Metrics';
-import { About } from './components/sections/About';
+import { ProductOverview } from './components/sections/ProductOverview';
+import { Integrations } from './components/sections/Integrations';
+import { HowItWorks } from './components/sections/HowItWorks';
+import { TargetAudience } from './components/sections/TargetAudience';
 import { WhyUs } from './components/sections/WhyUs';
 import { Features } from './components/sections/Features';
-import { Integrations } from './components/sections/Integrations';
+import { ReportsPreview } from './components/sections/ReportsPreview';
+import { Security } from './components/sections/Security';
 import { Plans, FAQ } from './components/sections/Content';
 import { Footer } from './components/layout/Footer';
+import { HelpCenter } from './pages/HelpCenter';
 
 const LandingPage = () => (
-  <div className="bg-slate-50 min-h-screen">
+  <div className="bg-slate-50 min-h-screen font-sans text-slate-900">
     <Header />
     <main>
       <Hero />
-      <Metrics />
-      <About />
+      <ProductOverview />
+      <Integrations />
+      <HowItWorks />
+      <TargetAudience />
       <WhyUs />
       <Features />
-      <Integrations />
+      <ReportsPreview />
+      <Security />
       <Plans />
       <FAQ />
       <Footer />
@@ -102,6 +109,7 @@ function App() {
                   <Route path="accounts-payable" element={<AccountsPayable />} />
                   <Route path="shipping" element={<Shipping />} />
                   <Route path="manager" element={<Manager />} />
+                  <Route path="/help-center" element={<HelpCenter />} />
                 </Routes>
               </DashboardProvider>
             </Router>

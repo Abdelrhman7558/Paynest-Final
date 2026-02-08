@@ -8,6 +8,9 @@ import styles from './Hero.module.css';
 export const Hero: React.FC = () => {
     const { t, isRTL } = useLanguage();
 
+    // Calm transition settings
+    const transition = { duration: 0.8, ease: "easeOut" as const };
+
     return (
         <section className={styles.hero} dir={isRTL ? 'rtl' : 'ltr'}>
             <div className={styles.background} />
@@ -15,9 +18,9 @@ export const Hero: React.FC = () => {
             <div className={styles.container}>
                 <motion.div
                     className={styles.content}
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5 }}
+                    transition={transition}
                 >
                     <h1 className={styles.title}>
                         {t('heroTitle')}
@@ -29,31 +32,36 @@ export const Hero: React.FC = () => {
                     </p>
 
                     <div className={styles.ctaGroup}>
-                        <Link
-                            to="/signup"
-                            className="btn btn-primary"
-                            style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}
-                        >
-                            {t('startFree')}
-                            <ArrowRight size={20} style={{ transform: isRTL ? 'rotate(180deg)' : 'none' }} />
-                        </Link>
-                        <a
+                        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                            <Link
+                                to="/signup"
+                                className="btn btn-primary shadow-lg hover:shadow-xl transition-shadow"
+                                style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}
+                            >
+                                {t('startFree')}
+                                <ArrowRight size={20} style={{ transform: isRTL ? 'rotate(180deg)' : 'none' }} />
+                            </Link>
+                        </motion.div>
+
+                        <motion.a
                             href="/#how-it-works"
                             className="btn btn-outline"
                             style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
                         >
                             <PlayCircle size={20} />
                             {t('seeHowItWorks')}
-                        </a>
+                        </motion.a>
                     </div>
                 </motion.div>
 
                 <div className={styles.visual}>
                     <motion.div
                         className={styles.card}
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.5, delay: 0.2 }}
+                        initial={{ opacity: 0, y: 40 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ ...transition, delay: 0.2 }}
                     >
                         <div className={styles.floatingBadge}>
                             {t('profitBadge')}
@@ -72,27 +80,33 @@ export const Hero: React.FC = () => {
                                         <stop offset="100%" stopColor="#0f766e" stopOpacity="0" />
                                     </linearGradient>
                                 </defs>
-                                <path
+                                <motion.path
                                     d="M0,150 C100,150 150,100 200,100 C250,100 300,50 400,20 L400,200 L0,200 Z"
                                     fill="url(#gradient)"
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    transition={{ duration: 1.5, delay: 0.5 }}
                                 />
-                                <path
+                                <motion.path
                                     d="M0,150 C100,150 150,100 200,100 C250,100 300,50 400,20"
                                     fill="none"
                                     stroke="#0f766e"
                                     strokeWidth="3"
                                     strokeLinecap="round"
+                                    initial={{ pathLength: 0 }}
+                                    animate={{ pathLength: 1 }}
+                                    transition={{ duration: 2, ease: "easeInOut", delay: 0.3 }}
                                 />
                             </svg>
                         </div>
 
                         <div className="flex gap-4 mt-6 border-t border-gray-100 pt-4">
                             <div>
-                                <span className="text-xs text-gray-500 block">{t('netProfit')}</span>
+                                <span className="text-xs text-slate-500 block">{t('netProfit')}</span>
                                 <span className="font-bold text-emerald-600">EG 42,100</span>
                             </div>
                             <div>
-                                <span className="text-xs text-gray-500 block">{t('expenses')}</span>
+                                <span className="text-xs text-slate-500 block">{t('expenses')}</span>
                                 <span className="font-bold text-slate-700">EG 82,400</span>
                             </div>
                         </div>

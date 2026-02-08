@@ -1,119 +1,151 @@
 .section {
-    padding: 6rem 0;
-    background-color: var(--color-bg);
+    padding: 120px 24px;
+    background-color: #f8fafc;
 }
 
 .container {
-    max-width: var(--max-width);
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 0 var(--container-padding);
 }
 
 .header {
     text-align: center;
-    margin-bottom: 4rem;
+    max-width: 800px;
+    margin: 0 auto 80px;
 }
 
 .title {
     font-size: 2.5rem;
-    color: var(--color-secondary);
-    font-weight: 700;
-    margin-bottom: 1rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
 }
 
-.cardsWrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 4rem;
-    padding-bottom: 4rem;
-}
-
-.cardContainer {
-    position: sticky;
-    top: 120px;
-    height: 400px;
-    margin-bottom: 2rem;
-}
-
-.card {
-    height: 100%;
-    background: white;
-    border-radius: 2rem;
-    border: 1px solid var(--color-border);
-    box-shadow: 0 20px 40px -5px rgba(0, 0, 0, 0.1);
-    display: grid;
-    grid-template-columns: 1fr;
-    overflow: hidden;
-}
-
-.cardContent {
-    padding: 3rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 1.5rem;
-}
-
-.cardTitle {
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--color-secondary);
-}
-
-.cardDesc {
+.subtitle {
     font-size: 1.125rem;
-    color: var(--color-text-muted);
+    color: #64748b;
     line-height: 1.6;
 }
 
-.cardVisual {
-    background: linear-gradient(135deg, rgba(15, 118, 110, 0.05) 0%, rgba(132, 204, 22, 0.1) 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem;
+.grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
 }
 
-.visualPlaceholder {
-    width: 80%;
-    height: 80%;
-    background: white;
-    border-radius: 1rem;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+.card {
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 32px;
+    border: 1px solid #e2e8f0;
+    transition: all 0.3s ease;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--color-primary);
-    font-weight: 600;
+    flex-direction: column;
+    height: 100%;
 }
 
-@media (min-width: 968px) {
-    .card {
-        grid-template-columns: 1fr 1fr;
-    }
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow:
+        0 10px 40px -10px rgba(0, 0, 0, 0.05),
+        0 0 0 1px #e2e8f0;
 }
 
 .iconBox {
-    width: 3rem;
-    height: 3rem;
-    border-radius: 0.75rem;
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 1rem;
+    margin-bottom: 24px;
 }
 
-.iconEmerald {
-    background-color: #ECFDF5;
-    color: #059669;
+.cardTitle {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 12px;
 }
 
-.iconBlue {
-    background-color: #EFF6FF;
+.cardDesc {
+    font-size: 1rem;
+    color: #64748b;
+    line-height: 1.6;
+}
+
+/* Features Color Themes */
+.themeBlue {
+    background: #EFF6FF;
     color: #2563EB;
 }
 
-.iconAmber {
-    background-color: #FFFBEB;
+.themeEmerald {
+    background: #ECFDF5;
+    color: #059669;
+}
+
+.themePurple {
+    background: #F5F3FF;
+    color: #7C3AED;
+}
+
+.themeAmber {
+    background: #FFFBEB;
     color: #D97706;
+}
+
+.themeRose {
+    background: #FFF1F2;
+    color: #E11D48;
+}
+
+.themeCyan {
+    background: #ECFEFF;
+    color: #0891B2;
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .title {
+        font-size: 3rem;
+    }
+}
+
+/* Dark Mode */
+:global(.dark) .section {
+    background-color: #0f172a;
+}
+
+:global(.dark) .title {
+    color: #f8fafc;
+}
+
+:global(.dark) .card {
+    background: #1e293b;
+    border-color: #334155;
+}
+
+:global(.dark) .cardTitle {
+    color: #f8fafc;
+}
+
+:global(.dark) .cardDesc {
+    color: #94a3b8;
+}
+
+:global(.dark) .card:hover {
+    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.3);
+    border-color: #475569;
 }

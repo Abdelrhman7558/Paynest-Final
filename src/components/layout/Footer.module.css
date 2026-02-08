@@ -1,103 +1,108 @@
 .footer {
-    background-color: var(--color-secondary);
-    /* Dark Navy */
+    background-color: #0f172a;
     color: white;
-    padding: 4rem 0 2rem 0;
+    padding: 80px 0 40px;
+    border-top: 1px solid #1e293b;
 }
 
 .container {
-    max-width: var(--max-width);
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 0 var(--container-padding);
+    padding: 0 24px;
 }
 
 .top {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 3rem;
-    margin-bottom: 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+    padding-bottom: 64px;
+    border-bottom: 1px solid #1e293b;
 }
 
 .brand {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
     max-width: 300px;
 }
 
 .brandDesc {
-    color: rgba(255, 255, 255, 0.7);
+    margin-top: 16px;
+    color: #94a3b8;
     line-height: 1.6;
+    font-size: 0.95rem;
 }
 
 .linksGroup {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
+    gap: 40px;
+    width: 100%;
 }
 
 .colTitle {
-    font-weight: 700;
-    margin-bottom: 1.5rem;
     color: white;
+    font-weight: 600;
+    margin-bottom: 24px;
+    font-size: 1rem;
 }
 
 .linkList {
     list-style: none;
+    padding: 0;
+    margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 12px;
 }
 
 .link {
-    color: rgba(255, 255, 255, 0.7);
+    color: #94a3b8;
     text-decoration: none;
     transition: color 0.2s;
+    font-size: 0.95rem;
 }
 
 .link:hover {
-    color: var(--color-primary-light);
+    color: #ffffff;
 }
 
 .bottom {
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    padding-top: 2rem;
+    padding-top: 32px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
-    color: rgba(255, 255, 255, 0.5);
-    font-size: 0.875rem;
+    gap: 24px;
+    color: #64748b;
+    font-size: 0.9rem;
 }
 
 .social {
     display: flex;
-    gap: 1rem;
+    gap: 20px;
 }
 
 .socialIcon {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    transition: background 0.2s;
+    color: #94a3b8;
+    transition: color 0.2s;
 }
 
 .socialIcon:hover {
-    background: var(--color-primary);
+    color: #ffffff;
 }
 
 @media (min-width: 768px) {
+    .linksGroup {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
     .top {
-        grid-template-columns: 1fr 2fr;
+        flex-direction: row;
+        justify-content: space-between;
     }
 
     .linksGroup {
-        grid-template-columns: repeat(3, 1fr);
+        width: auto;
+        gap: 60px;
     }
 
     .bottom {

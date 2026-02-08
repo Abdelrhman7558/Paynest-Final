@@ -131,14 +131,22 @@
 }
 
 @media (min-width: 768px) {
+    .container {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        align-items: center;
+    }
+
     .nav {
         display: flex;
         align-items: center;
         gap: 2rem;
+        justify-self: center;
     }
 
     .actions {
         display: flex;
+        justify-self: end;
     }
 
     .mobileToggle {

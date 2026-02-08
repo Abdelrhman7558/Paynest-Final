@@ -1,5 +1,5 @@
 .section {
-    padding: 100px 24px;
+    padding: 120px 24px;
     background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
     position: relative;
     overflow: hidden;
@@ -24,20 +24,23 @@
 
 .header {
     text-align: center;
-    margin-bottom: 60px;
+    margin-bottom: 80px;
 }
 
 .title {
     font-size: 2.5rem;
     font-weight: 800;
     color: #0f172a;
-    margin-bottom: 12px;
+    margin-bottom: 16px;
     letter-spacing: -0.02em;
 }
 
 .subtitle {
     font-size: 1.125rem;
     color: #64748b;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
 }
 
 .comparisonTable {
@@ -53,7 +56,7 @@
 .tableHeader {
     display: grid;
     grid-template-columns: 60px 1fr 1fr;
-    padding: 24px 32px;
+    padding: 32px;
     background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
     border-bottom: 1px solid #e2e8f0;
 }
@@ -73,20 +76,20 @@
 
 .colHeader {
     font-weight: 600;
-    font-size: 0.95rem;
+    font-size: 1rem;
     color: #64748b;
 }
 
 .brandBadge {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    padding: 8px 16px;
+    gap: 10px;
+    padding: 10px 20px;
     background: linear-gradient(135deg, #10b981 0%, #059669 100%);
     color: white;
     border-radius: 100px;
     font-weight: 700;
-    font-size: 0.9rem;
+    font-size: 1rem;
     box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
 }
 
@@ -105,9 +108,9 @@
 .row {
     display: grid;
     grid-template-columns: 60px 1fr 1fr;
-    padding: 20px 32px;
+    padding: 32px;
     border-bottom: 1px solid #f1f5f9;
-    transition: background 0.2s ease;
+    transition: background 0.3s ease;
 }
 
 .row:last-child {
@@ -115,35 +118,51 @@
 }
 
 .row:hover {
-    background: #fafbfc;
+    background: #f8fafc;
 }
 
 .featureIcon {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 44px;
-    height: 44px;
+    width: 48px;
+    height: 48px;
     background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
-    border-radius: 12px;
+    border-radius: 14px;
     color: #10b981;
 }
 
 .usCell,
 .themCell {
     display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    font-size: 1rem;
+    flex-direction: column;
+}
+
+.cellHeader {
+    display: flex;
     align-items: center;
     gap: 12px;
-    font-size: 0.95rem;
 }
 
-.usCell {
+.usCell .cellHeader {
     color: #0f172a;
-    font-weight: 500;
+    font-weight: 600;
 }
 
-.themCell {
+.themCell .cellHeader {
     color: #94a3b8;
+}
+
+.explanation {
+    font-size: 0.875rem;
+    color: #64748b;
+    margin-top: 4px;
+    line-height: 1.5;
+    padding-left: 32px;
+    /* Accessibly indent */
 }
 
 .checkIcon {
@@ -164,7 +183,7 @@
 
 .trustBadge {
     text-align: center;
-    margin-top: 48px;
+    margin-top: 64px;
 }
 
 .trustText {
@@ -178,9 +197,9 @@
 }
 
 /* RTL Support */
-[dir="rtl"] .usCell,
-[dir="rtl"] .themCell {
-    flex-direction: row-reverse;
+[dir="rtl"] .explanation {
+    padding-left: 0;
+    padding-right: 32px;
 }
 
 /* Dark Mode */
@@ -188,6 +207,7 @@
     background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
 }
 
+/* ... keep other dark mode styles ... */
 :global(.dark) .title {
     color: #f8fafc;
 }
@@ -218,7 +238,7 @@
     background: #334155;
 }
 
-:global(.dark) .usCell {
+:global(.dark) .usCell .cellHeader {
     color: #f8fafc;
 }
 
@@ -226,43 +246,30 @@
     background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(16, 185, 129, 0.1) 100%);
 }
 
-/* Mobile Responsive */
 @media (max-width: 768px) {
     .section {
         padding: 60px 16px;
     }
 
-    .title {
-        font-size: 1.75rem;
-    }
-
     .tableHeader,
     .row {
-        grid-template-columns: 48px 1fr 1fr;
-        padding: 16px;
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .featureCol {
+        display: none;
+    }
+
+    .explanation {
+        padding-left: 0;
+        padding-right: 0;
     }
 
     .usCell,
     .themCell {
         flex-direction: column;
-        gap: 6px;
-        text-align: center;
-        font-size: 0.85rem;
-    }
-
-    .checkIcon,
-    .xIcon {
-        margin: 0 auto;
-    }
-
-    .brandBadge {
-        padding: 6px 12px;
-        font-size: 0.8rem;
-    }
-
-    .brandIcon {
-        width: 20px;
-        height: 20px;
-        font-size: 0.75rem;
+        align-items: flex-start;
+        text-align: left;
     }
 }

@@ -8,41 +8,49 @@ interface ComparisonItem {
     feature: string;
     us: string;
     them: string;
+    explanation: string;
     icon: React.ReactNode;
 }
 
 export const WhyUs: React.FC = () => {
     const { t, isRTL } = useLanguage();
 
+    // In a real app, these strings should be in translation files. 
+    // Using hardcoded English for now as per instructions to improve content.
     const comparisons: ComparisonItem[] = [
         {
             feature: 'sync',
-            us: t('realTimeSync'),
-            them: t('manualUploads'),
+            us: "Real-time Sync",
+            them: "Manual Uploads",
+            explanation: "We connect directly to your banks and ad platforms. No more CSV exports.",
             icon: <Zap size={24} />,
         },
         {
             feature: 'categorization',
-            us: t('autoCategorizationFeature'),
-            them: t('spreadsheetsManual'),
+            us: "AI Categorization",
+            them: "Manual Tagging",
+            explanation: "Our AI learns your business and categorizes 95% of transactions automatically.",
             icon: <Target size={24} />,
         },
         {
             feature: 'reports',
-            us: t('investorReadyReports'),
-            them: t('rawDataExports'),
+            us: "Investor-Ready",
+            them: "Raw Data Exports",
+            explanation: "Generate P&L, Cash Flow, and Balance Sheets in one click.",
             icon: <TrendingUp size={24} />,
         },
         {
             feature: 'dashboard',
-            us: t('oneDashboard'),
-            them: t('multipleTools'),
+            us: "Single Dashboard",
+            them: "Fragmented Tools",
+            explanation: "See Ads, Inventory, and Finance all in one place.",
             icon: <LayoutDashboard size={24} />,
         },
         {
             feature: 'audience',
-            us: t('builtForFounders'),
-            them: t('builtForAccountants'),
+            us: "Built for Founders",
+            them: "For Accountants",
+            explanation: "Designed for decision makers, not just compliance.",
             icon: <Users size={24} />,
         },
     ];
@@ -57,8 +65,10 @@ export const WhyUs: React.FC = () => {
                     viewport={{ once: true }}
                     transition={{ duration: 0.5 }}
                 >
-                    <h2 className={styles.title}>{t('whyUsTitle')}</h2>
-                    <p className={styles.subtitle}>{t('whyUsSubtitle')}</p>
+                    <h2 className={styles.title}>Why Paynest Wins</h2>
+                    <p className={styles.subtitle}>
+                        Stop struggling with tools that weren't built for modern commerce.
+                    </p>
                 </motion.div>
 
                 <motion.div
@@ -81,7 +91,7 @@ export const WhyUs: React.FC = () => {
                         </div>
                         <div className={styles.themCol}>
                             <div className={styles.colHeader}>
-                                {t('traditionalTools')}
+                                Traditional Tools
                             </div>
                         </div>
                     </div>
@@ -100,13 +110,14 @@ export const WhyUs: React.FC = () => {
                                 <span className={styles.featureIcon}>{item.icon}</span>
                             </div>
                             <div className={styles.usCol}>
-                                <div className={styles.usCell}>
+                                <div className={styles.cellHeader}>
                                     <Check className={styles.checkIcon} size={20} />
                                     <span>{item.us}</span>
                                 </div>
+                                <p className={styles.explanation}>{item.explanation}</p>
                             </div>
                             <div className={styles.themCol}>
-                                <div className={styles.themCell}>
+                                <div className={styles.cellHeader}>
                                     <X className={styles.xIcon} size={20} />
                                     <span>{item.them}</span>
                                 </div>

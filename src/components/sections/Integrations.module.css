@@ -45,4 +45,5 @@
 .logoItem:hover {
     opacity: 1;
     transform: scale(1.05);
+    color: var(--hover-color);
 }
