@@ -1,0 +1,101 @@
+.section {
+    position: relative;
+    z-index: 10;
+    margin-top: 50px;
+    /* Overlap Hero */
+    padding-bottom: 4rem;
+}
+
+.container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 var(--container-padding);
+}
+
+.window {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid white;
+    border-radius: 1.5rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+}
+
+.windowHeader {
+    height: 48px;
+    background: rgba(255, 255, 255, 0.5);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    padding: 0 1.5rem;
+    gap: 0.5rem;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.dotRed {
+    background: #FF5F57;
+}
+
+.dotYellow {
+    background: #FFBD2E;
+}
+
+.dotGreen {
+    background: #28C840;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    divide-y: 1px;
+    divide-color: rgba(0, 0, 0, 0.05);
+}
+
+.metricItem {
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+}
+
+.iconWrapper {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: rgba(15, 118, 110, 0.1);
+    color: var(--color-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+}
+
+.value {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--color-secondary);
+    font-family: var(--font-heading);
+    line-height: 1;
+}
+
+.label {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--color-text-muted);
+}
+
+@media (min-width: 768px) {
+    .grid {
+        grid-template-columns: repeat(3, 1fr);
+        divide-y: 0;
+        divide-x: 1px;
+    }
+}

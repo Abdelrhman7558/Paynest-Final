@@ -1,0 +1,119 @@
+.section {
+    padding: 6rem 0;
+    background-color: var(--color-bg);
+}
+
+.container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 var(--container-padding);
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.title {
+    font-size: 2.5rem;
+    color: var(--color-secondary);
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.cardsWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+    padding-bottom: 4rem;
+}
+
+.cardContainer {
+    position: sticky;
+    top: 120px;
+    height: 400px;
+    margin-bottom: 2rem;
+}
+
+.card {
+    height: 100%;
+    background: white;
+    border-radius: 2rem;
+    border: 1px solid var(--color-border);
+    box-shadow: 0 20px 40px -5px rgba(0, 0, 0, 0.1);
+    display: grid;
+    grid-template-columns: 1fr;
+    overflow: hidden;
+}
+
+.cardContent {
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.cardTitle {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-secondary);
+}
+
+.cardDesc {
+    font-size: 1.125rem;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+}
+
+.cardVisual {
+    background: linear-gradient(135deg, rgba(15, 118, 110, 0.05) 0%, rgba(132, 204, 22, 0.1) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.visualPlaceholder {
+    width: 80%;
+    height: 80%;
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-primary);
+    font-weight: 600;
+}
+
+@media (min-width: 968px) {
+    .card {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.iconBox {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.iconEmerald {
+    background-color: #ECFDF5;
+    color: #059669;
+}
+
+.iconBlue {
+    background-color: #EFF6FF;
+    color: #2563EB;
+}
+
+.iconAmber {
+    background-color: #FFFBEB;
+    color: #D97706;
+}
