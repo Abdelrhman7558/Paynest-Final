@@ -1,5 +1,6 @@
 // Shopify OAuth Configuration
-const SHOPIFY_API_KEY = "29b8236528f54566112cec5277fb6cc9";
+const SHOPIFY_API_KEY = import.meta.env.VITE_SHOPIFY_API_KEY;
+const SHOPIFY_API_SECRET = import.meta.env.VITE_SHOPIFY_API_SECRET;
 const SHOPIFY_SCOPES = "read_all_orders,read_analytics,read_customers,read_inventory,read_inventory_shipments,read_inventory_shipments_received_items,read_locations,read_orders,read_product_listings,read_products,customer_read_companies,customer_read_customers,customer_read_orders";
 const SHOPIFY_REDIRECT_URI = "https://n8n.srv1181726.hstgr.cloud/webhook/shopify/callback";
 
@@ -81,7 +82,8 @@ export const OAuthService = {
 
         // 2️⃣ Generate state for CSRF protection and encode user_id
         const randomState = generateRandomState();
-        const stateWithUserId = `${randomState}:${userId}`; // Format: randomString:userId
+        const returnUrl = window.location.origin;
+        const stateWithUserId = `${randomState}:${userId}:${returnUrl}`; // Format: randomString:userId:returnUrl
         storeOAuthState(randomState, userId);
 
         // 3️⃣ Build Shopify OAuth URL
@@ -143,6 +145,7 @@ export const OAuthService = {
     getConfig: () => ({
         shopify: {
             apiKey: SHOPIFY_API_KEY,
+            apiSecret: SHOPIFY_API_SECRET,
             scopes: SHOPIFY_SCOPES,
             redirectUri: SHOPIFY_REDIRECT_URI,
         },
