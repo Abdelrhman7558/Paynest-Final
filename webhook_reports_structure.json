@@ -1,0 +1,134 @@
+{
+    "kpis": [
+        {
+            "title": "Net Revenue",
+            "value": "EGP 328,000",
+            "change": 12.5,
+            "changeLabel": "vs last period",
+            "tooltip": "Total revenue after returns and discounts",
+            "icon": "DollarSign"
+        },
+        {
+            "title": "Net Profit",
+            "value": "EGP 113,000",
+            "change": 8.3,
+            "changeLabel": "vs last period",
+            "tooltip": "Revenue minus all costs and expenses",
+            "icon": "Wallet"
+        },
+        {
+            "title": "Gross Margin",
+            "value": "34.5%",
+            "change": 2.1,
+            "changeLabel": "vs last period",
+            "tooltip": "(Revenue - Cost of Goods) / Revenue × 100",
+            "icon": "Percent"
+        },
+        {
+            "title": "Total Costs",
+            "value": "EGP 215,000",
+            "change": -5.2,
+            "changeLabel": "vs last period",
+            "tooltip": "All operational and product costs combined",
+            "icon": "TrendingDown"
+        }
+    ],
+    "chartData": [
+        {
+            "month": "Jan",
+            "revenue": 45000,
+            "costs": 32000,
+            "profit": 13000
+        },
+        {
+            "month": "Feb",
+            "revenue": 52000,
+            "costs": 35000,
+            "profit": 17000
+        },
+        {
+            "month": "Mar",
+            "revenue": 48000,
+            "costs": 33000,
+            "profit": 15000
+        },
+        {
+            "month": "Apr",
+            "revenue": 61000,
+            "costs": 38000,
+            "profit": 23000
+        },
+        {
+            "month": "May",
+            "revenue": 55000,
+            "costs": 36000,
+            "profit": 19000
+        },
+        {
+            "month": "Jun",
+            "revenue": 67000,
+            "costs": 41000,
+            "profit": 26000
+        }
+    ],
+    "insights": [
+        {
+            "id": "1",
+            "type": "success",
+            "title": "Profit Margin Improved",
+            "description": "Your profit margin increased by 2.1% this month.",
+            "source": "Costs & Revenue Analysis",
+            "confidence": 94
+        },
+        {
+            "id": "2",
+            "type": "warning",
+            "title": "Inventory Holding Costs Rising",
+            "description": "Slow-moving SKUs are increasing storage costs.",
+            "source": "Inventory Analysis",
+            "confidence": 87
+        },
+        {
+            "id": "3",
+            "type": "info",
+            "title": "Ad Spend Efficiency",
+            "description": "Your ROAS improved to 3.2x this month.",
+            "source": "Ads Performance",
+            "confidence": 91
+        }
+    ],
+    "revenueBreakdown": [
+        {
+            "category": "Product Sales",
+            "amount": 245000,
+            "percentage": 74.7
+        },
+        {
+            "category": "Services",
+            "amount": 52000,
+            "percentage": 15.9
+        },
+        {
+            "category": "Subscriptions",
+            "amount": 31000,
+            "percentage": 9.4
+        }
+    ],
+    "costBreakdown": [
+        {
+            "category": "Product Costs",
+            "amount": 125000,
+            "percentage": 58.1
+        },
+        {
+            "category": "Marketing",
+            "amount": 45000,
+            "percentage": 20.9
+        },
+        {
+            "category": "Operations",
+            "amount": 28000, "percentage: 13.0 },{
+                "category": "Overhead",
+                "amount": 17000, "percentage: 8.0 }
+            ]
+        }

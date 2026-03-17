@@ -1,0 +1,42 @@
+.card {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.statValue {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #0F172A;
+    /* Slate 900 */
+    font-variant-numeric: tabular-nums;
+}
+
+.statLabel {
+    font-size: 0.875rem;
+    color: #64748B;
+    /* Slate 500 */
+    font-weight: 500;
+}
+
+.trendPositive {
+    color: #10B981;
+    /* Emerald 500 */
+    display: flex;
+    align-items: center;
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.trendNegative {
+    color: #EF4444;
+    /* Red 500 */
+    display: flex;
+    align-items: center;
+    font-size: 0.875rem;
+    font-weight: 600;
+}

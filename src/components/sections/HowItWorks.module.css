@@ -1,0 +1,123 @@
+.section {
+    padding: 6rem 0;
+    background-color: #f8fafc;
+}
+
+.container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 var(--container-padding);
+}
+
+.title {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--color-secondary);
+    margin-bottom: 4rem;
+}
+
+.steps {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    position: relative;
+}
+
+.step {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    position: relative;
+    z-index: 1;
+}
+
+.number {
+    width: 3rem;
+    height: 3rem;
+    background: var(--color-primary);
+    color: white;
+    font-weight: 700;
+    font-size: 1.25rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.content {
+    background: white;
+    padding: 2rem;
+    border-radius: 1rem;
+    border: 1px solid #e2e8f0;
+    width: 100%;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.stepTitle {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-secondary);
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.stepDescription {
+    color: var(--color-text-muted);
+    line-height: 1.6;
+}
+
+.connector {
+    position: absolute;
+    left: 1.5rem;
+    top: 3rem;
+    bottom: -2rem;
+    width: 2px;
+    background: #e2e8f0;
+    transform: translateX(-50%);
+    z-index: 0;
+}
+
+.step:last-child .connector {
+    display: none;
+}
+
+@media (min-width: 768px) {
+    .steps {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+
+    .step {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        flex: 1;
+        gap: 1.5rem;
+    }
+
+    .connector {
+        left: 50%;
+        top: 1.5rem;
+        right: -50%;
+        bottom: auto;
+        width: auto;
+        height: 2px;
+        transform: none;
+    }
+
+    .number {
+        margin-bottom: 0;
+    }
+
+    .content {
+        min-height: 200px;
+    }
+
+    .stepTitle {
+        justify-content: center;
+    }
+}

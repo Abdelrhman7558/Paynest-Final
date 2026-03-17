@@ -1,0 +1,112 @@
+.footer {
+    background-color: #0f172a;
+    color: white;
+    padding: 80px 0 40px;
+    border-top: 1px solid #1e293b;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.top {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+    padding-bottom: 64px;
+    border-bottom: 1px solid #1e293b;
+}
+
+.brand {
+    max-width: 300px;
+}
+
+.brandDesc {
+    margin-top: 16px;
+    color: #94a3b8;
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+.linksGroup {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+    width: 100%;
+}
+
+.colTitle {
+    color: white;
+    font-weight: 600;
+    margin-bottom: 24px;
+    font-size: 1rem;
+}
+
+.linkList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.link {
+    color: #94a3b8;
+    text-decoration: none;
+    transition: color 0.2s;
+    font-size: 0.95rem;
+}
+
+.link:hover {
+    color: #ffffff;
+}
+
+.bottom {
+    padding-top: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    color: #64748b;
+    font-size: 0.9rem;
+}
+
+.social {
+    display: flex;
+    gap: 20px;
+}
+
+.socialIcon {
+    color: #94a3b8;
+    transition: color 0.2s;
+}
+
+.socialIcon:hover {
+    color: #ffffff;
+}
+
+@media (min-width: 768px) {
+    .linksGroup {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .top {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .linksGroup {
+        width: auto;
+        gap: 60px;
+    }
+
+    .bottom {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
